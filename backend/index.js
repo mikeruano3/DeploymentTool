@@ -4,6 +4,7 @@ var express         = require('express'),
 const cors          = require('cors');
 const jwt           = require('./_helpers/jwt');
 const errorHandler  = require('./_helpers/error-handler');
+const initDB        = require('./_helpers/db-initialization');
 require('dotenv').config();
 
 var app = express()
@@ -12,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 var corsOptions = {
-  origin: "http://localhost:5021"
+  origin: process.env.FRONTEND_PORT
 };
 app.use(cors(corsOptions));
 app.use(jwt());
@@ -29,7 +30,7 @@ routes(app);
 // global error handler
 app.use(errorHandler);
 
-let server_port = process.env.PORT;
+let server_port = process.env.BACKEND_PORT;
 app.listen(server_port, function() {
   console.log('[:: INIT ::]');
   console.log("PORT:" + server_port );

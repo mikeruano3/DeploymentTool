@@ -6,6 +6,7 @@
 **/profiles
 **/tempFiles
 **/.env
+**/.db
 
 ##### FRONTEND #####
 

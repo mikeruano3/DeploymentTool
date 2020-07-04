@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS job_sequences;
+DROP TABLE IF EXISTS job_sequence_tasks ;
+DROP TABLE IF EXISTS users;

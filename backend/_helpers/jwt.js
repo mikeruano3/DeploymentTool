@@ -5,7 +5,7 @@ module.exports = jwt;
 
 function jwt() {
     const secret = process.env.TOKEN_SECRET;
-    return expressJwt({ secret }).unless({
+    return expressJwt({ secret: secret, algorithms: [process.env.ALGORITHMS] }).unless({
         path: [
             // public routes that don't require authentication
             '/access/login'
