@@ -6,3 +6,12 @@ VALUES
     ("deploymentFolder",    "/var/www/html/ecredit/",                       "deploymentFolder"),
     ("projectBuildFolder",  "business",                                     "projectBuildFolder")
 ;
+
+INSERT INTO projects (name, description)
+VALUES 
+    ("Backend Credit Manager",     "BackEnd Credit"),
+    ("Frontend Credit Manager",    "FrontEnd Credit")
+;
+
+
+

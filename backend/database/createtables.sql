@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS projects (
-    project_id INTEGER PRIMARY KEY,
-    project_name TEXT,
-    project_desc TEXT
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE,
+    description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS tasks (

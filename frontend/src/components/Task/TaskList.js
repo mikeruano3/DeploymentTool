@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProjectsDataService from "../services/ProjectsDataService";
+import DataService from "../../services/rawdata.service";
 import { Link } from "react-router-dom";
 
 const ProjectsList = () => {
@@ -51,7 +51,7 @@ const ProjectsList = () => {
     };
 
     const findByTitle = () => {
-        ProjectsDataService.findByTitle(searchTitle)
+        ProjectsDataService.findByName(searchTitle)
           .then(response => {
             setProjects(response.data);
             console.log(response.data);

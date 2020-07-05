@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProjectsDataService from "../services/ProjectsDataService";
+import ProjectsDataService from "../../services/ProjectsDataService";
 
 const Project = props => {
     const initialProjectState = {
