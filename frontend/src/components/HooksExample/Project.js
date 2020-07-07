@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from "react";
 import dataServiceCommon from "../../services/rawdata.service";
-const dataService = new dataServiceCommon('data/tasks');
+const dataService = new dataServiceCommon('data/projects');
 
-const Task = props => {
-    const initialTaskState = {
+const Project = props => {
+    const initialProjectState = {
       id: null,
-      name: null,
-      description: null,
-      order_number: 0, 
-      task_type: 0,
-      request_type: null, 
-      request_url: null, 
-      request_body: null, 
-      project_id: 0
+      name: "",
+      description: ""
     };
-    const [currentTask, setCurrentTask] = useState(initialTaskState);
+    const [currentProject, setCurrentProject] = useState(initialProjectState);
     const [message, setMessage] = useState("");
   
-    const getTask = id => {
-      dataService.get(id)
+    const getProject = id => {
+      dataService.findOne({id: id})
         .then(response => {
-          setCurrentTask(response.data.data);
+          setCurrentProject(response.data.data);
           console.log(response.data);
         })
         .catch(e => {
@@ -29,18 +23,18 @@ const Task = props => {
     };
   
     useEffect(() => {
-        getTask(props.match.params.id);
+        getProject(props.match.params.id);
     }, [props.match.params.id]);
   
     const handleInputChange = event => {
       const { name, value } = event.target;
-      setCurrentTask({ ...currentTask, [name]: value });
+      setCurrentProject({ ...currentProject, [name]: value });
     };
   
     const updatePublished = status => {
       var data = {
         id: currentProject.id,
-        title: currentProject.title,
+        name: currentProject.name,
         description: currentProject.description,
         published: status
       };
@@ -55,22 +49,22 @@ const Task = props => {
         });
     };
   
-    const updateTask = () => {
+    const updateProject = () => {
       dataService.update({ id: currentProject.id }, currentProject)
         .then(response => {
           console.log(response.data);
-          setMessage("The task was updated successfully!");
+          setMessage("The project was updated successfully!");
         })
         .catch(e => {
           console.log(e);
         });
     };
   
-    const deleteTask = () => {
+    const deleteProject = () => {
       dataService.remove({ id: currentProject.id })
         .then(response => {
           console.log(response.data);
-          props.history.push("/tasks");
+          props.history.push("/projects");
         })
         .catch(e => {
           console.log(e);
@@ -79,9 +73,9 @@ const Task = props => {
   
     return (
         <div>
-          {currentTask ? (
+          {currentProject ? (
             <div className="edit-form">
-              <h4>Task</h4>
+              <h4>Project</h4>
               <form>
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
@@ -90,7 +84,7 @@ const Task = props => {
                     className="form-control"
                     id="name"
                     name="name"
-                    value={currentTask.name}
+                    value={currentProject.name}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -101,7 +95,7 @@ const Task = props => {
                     className="form-control"
                     id="description"
                     name="description"
-                    value={currentTask.description}
+                    value={currentProject.description}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -110,11 +104,11 @@ const Task = props => {
                   <label>
                     <strong>Status:</strong>
                   </label>
-                  {currentTask.published ? "Published" : "Pending"}
+                  {currentProject.published ? "Published" : "Pending"}
                 </div>
               </form>
     
-              {currentTask.published ? (
+              {currentProject.published ? (
                 <button
                   className="badge badge-primary mr-2"
                   onClick={() => updatePublished(false)}
@@ -130,14 +124,14 @@ const Task = props => {
                 </button>
               )}
     
-              <button className="badge badge-danger mr-2" onClick={deleteTask}>
+              <button className="badge badge-danger mr-2" onClick={deleteProject}>
                 Delete
               </button>
     
               <button
                 type="submit"
                 className="badge badge-success"
-                onClick={updateTask}
+                onClick={updateProject}
               >
                 Update
               </button>
@@ -153,4 +147,4 @@ const Task = props => {
     );    
 };
   
-export default Task;
+export default Project;

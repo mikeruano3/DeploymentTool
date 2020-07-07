@@ -1,0 +1,4 @@
+{
+    "BACKEND_HOST": "http://localhost",
+    "BACKEND_PORT": 5020
+}

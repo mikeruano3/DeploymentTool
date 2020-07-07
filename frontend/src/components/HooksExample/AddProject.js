@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import dataServiceCommon from "../../services/rawdata.service";
-const dataService = new dataServiceCommon('data/tasks');
+const dataService = new dataServiceCommon('data/projects');
 
-const AddTask = () => {
+const AddProject = () => {
     const initialProjectState = {
       id: null,
-      title: "",
+      name: "",
       description: "",
       published: false
     };
@@ -19,15 +19,15 @@ const AddTask = () => {
   
     const saveProject = () => {
       var data = {
-        title: project.title,
+        name: project.name,
         description: project.description
       };
   
-      dataService.create(data)
+      dataService.insertOne(data)
         .then(response => {
           setProject({
             id: response.data.id,
-            title: response.data.title,
+            name: response.data.name,
             description: response.data.description,
             published: response.data.published
           });
@@ -56,15 +56,15 @@ const AddTask = () => {
           ) : (
             <div>
               <div className="form-group">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="title"
+                  id="name"
                   required
-                  value={project.title}
+                  value={project.name}
                   onChange={handleInputChange}
-                  name="title"
+                  name="name"
                 />
               </div>
     
@@ -90,4 +90,4 @@ const AddTask = () => {
     );
 };
   
-export default AddTask;
+export default AddProject;

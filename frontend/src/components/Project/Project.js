@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import dataService from "../../services/rawdata.service";
-dataService.setTable('projects');
+import dataServiceCommon from "../../services/rawdata.service";
+const dataService = new dataServiceCommon('data/projects');
 
 export default class Project extends Component {
     constructor(props) {
@@ -91,12 +91,8 @@ export default class Project extends Component {
     }
   
     updateProject() {
-      dataService.update(
-        {
-          query: {id: this.state.currentProject.id}, 
-          data: this.state.currentProject
-        }
-      )
+      dataService.update({id: this.state.currentProject.id}, 
+        this.state.currentProject)
         .then(response => {
           console.log(response.data);
           this.setState({

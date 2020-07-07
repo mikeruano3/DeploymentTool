@@ -114,7 +114,7 @@ function App() {
             <Route exact path={["/", "/projects"]} component={ProjectList} />
             <Route exact path="/add" component={AddProject} />
             <Route path="/projects/:id" component={Project} />
-            
+           
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
 

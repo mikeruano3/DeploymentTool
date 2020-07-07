@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import dataService from "../../services/rawdata.service";
-dataService.setTable('projects');
+import dataServiceCommon from "../../services/rawdata.service";
+const dataService = new dataServiceCommon('data/projects');
 
 export default class AddProject extends Component {
     constructor(props) {

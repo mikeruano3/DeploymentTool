@@ -73,7 +73,7 @@ const Login = (props) => {
     
     return (
         <div className="col-md-12">
-          <div className="card card-container">
+          <div className="login-card login-card-container">
             <img
               src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
               alt="profile-img"
@@ -82,7 +82,7 @@ const Login = (props) => {
     
             <Form onSubmit={handleLogin} ref={form}>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username" className="login-label">Username</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -94,7 +94,7 @@ const Login = (props) => {
               </div>
     
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password" className="login-label">Password</label>
                 <Input
                   type="password"
                   className="form-control"

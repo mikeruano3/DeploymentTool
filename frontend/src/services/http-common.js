@@ -1,5 +1,7 @@
+import configs from "../config.json";
+
 export default {
-  baseURL: `http://localhost:5020`,
+  baseURL: `${configs.BACKEND_HOST}:${configs.BACKEND_PORT}`,
   headers: {
     "Content-type": "application/json"
   }
