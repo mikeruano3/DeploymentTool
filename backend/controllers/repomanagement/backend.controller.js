@@ -1,33 +1,41 @@
-const commandHandler        = require('../../_helpers/execute-commands');
-const configHandler         = require('../../_helpers/config-handler');
-const CONSTANTS             = require('../../configs/constants').constants
-const commonactions         = require('./_helpers/commonactions');
+const dbmanager                 = require('../../_helpers/db-manager');
+const commonactions             = require('./_helpers/commonactions');
+const tablename                 = "global_vars";
+const backendFullPathRowName    = "backendFullPath";
+const PM2projectNameRowName     = "PM2projectName";
 
 pullChanges = async (req, res) => {
-    const branch = req.body.branch
-    const backendFullPath = await configHandler.retreiveConfigVar(CONSTANTS.backendFullPathVarname)
-    return await commonactions.pullchanges(req, res, branch, backendFullPath);
+    const branch = req.body.branch;
+    const projectFullpathQuery  = await dbmanager.get(tablename, {name: backendFullPathRowName}, 1);
+    const projectFullpath  = projectFullpathQuery.data.value;
+    return await commonactions.pullchanges(req, res, branch, projectFullpath);
 }
 
 installPackages = async (req, res) => {
-    const backendFullPath = await configHandler.retreiveConfigVar(CONSTANTS.backendFullPathVarname)
-    return await commonactions.installNPMPkgs(req, res, backendFullPath);
+    const projectFullpathQuery  = await dbmanager.get(tablename, {name: backendFullPathRowName}, 1);
+    const projectFullpath  = projectFullpathQuery.data.value;
+    return await commonactions.installNPMPkgs(req, res, projectFullpath);
 }
 
 runTests = async (req, res) => {
-    const backendFullPath = await configHandler.retreiveConfigVar(CONSTANTS.backendFullPathVarname)
-    return await commonactions.commandExecution(req, res, `cd ${backendFullPath} && npm test`);
+    const projectFullpathQuery  = await dbmanager.get(tablename, {name: backendFullPathRowName}, 1);
+    const projectFullpath  = projectFullpathQuery.data.value;
+    return await commonactions.commandExecution(req, res, `cd ${projectFullpath} && npm test`);
 }
 
 reloadPM2Proj = async (req, res) => {
-    const PM2projectName = await configHandler.retreiveConfigVar(CONSTANTS.PM2projectNameVarname)
+    const PM2projectNameQuery  = await dbmanager.get(tablename, {name: PM2projectNameRowName}, 1);
+    const PM2projectName  = PM2projectNameQuery.data.value;
     return await commonactions.commandExecution(req, res, `pm2 restart ${PM2projectName}`);
 }
 
 startPM2Proj = async (req, res) => {
-    const backendFullPath = await configHandler.retreiveConfigVar(CONSTANTS.backendFullPathVarname)
-    const PM2projectName = await configHandler.retreiveConfigVar(CONSTANTS.PM2projectNameVarname)
-    return await commonactions.commandExecution(req, res, `pm2 start ${backendFullPath}index.js --name ${PM2projectName} --watch --log logs.log`);
+    const projectFullpathQuery  = await dbmanager.get(tablename, {name: backendFullPathRowName}, 1);
+    const projectFullpath  = projectFullpathQuery.data.value;
+    
+    const PM2projectNameQuery  = await dbmanager.get(tablename, {name: PM2projectNameRowName}, 1);
+    const PM2projectName  = PM2projectNameQuery.data.value;
+    return await commonactions.commandExecution(req, res, `pm2 start ${projectFullpath}index.js --name ${PM2projectName} --watch --log logs.log`);
 }
 
 module.exports = {

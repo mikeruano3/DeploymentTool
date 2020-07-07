@@ -5,6 +5,6 @@ const getLoggedUser 	    = require('../services/auth.service').verifyToken
 
 module.exports = (app) => {
     app.use('/api/auth', authroute)
-    app.use('/api/repo', getLoggedUser, repomanager)
+    app.use('/api/actions', getLoggedUser, repomanager)
     app.use('/api/data', getLoggedUser, datamgr)
 }

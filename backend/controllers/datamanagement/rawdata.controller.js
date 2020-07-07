@@ -1,6 +1,4 @@
-const sqlite3               = require('sqlite3').verbose();
 const dbmanager             = require('../../_helpers/db-manager');
-require('dotenv').config();
 
 exports.findOne = async(req, res) => {
   let result = await dbmanager.get(req.params.table, req.body, 1)

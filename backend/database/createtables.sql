@@ -5,10 +5,11 @@ CREATE TABLE IF NOT EXISTS projects (
 );
 
 CREATE TABLE IF NOT EXISTS tasks (
-    task_id INTEGER PRIMARY KEY,
-    task_name TEXT,
-    task_desc TEXT,
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    description TEXT,
     order_number INTEGER,
+    task_type INTEGER,
     request_type TEXT,
     request_url TEXT,
     request_body TEXT,
@@ -20,7 +21,9 @@ CREATE TABLE IF NOT EXISTS tasks (
 );
 
 CREATE TABLE IF NOT EXISTS job_sequences (
-    job_sequence_id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    description TEXT,
     project_id INTEGER,
     FOREIGN KEY (project_id) 
       REFERENCES projects (project_id)
@@ -41,14 +44,14 @@ CREATE TABLE IF NOT EXISTS job_sequence_tasks (
 );
 
 CREATE TABLE IF NOT EXISTS users (
-    user_id INTEGER PRIMARY KEY,
-    user_name TEXT NOT NULL UNIQUE,
-    user_password TEXT
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    password TEXT
 );
 
 CREATE TABLE IF NOT EXISTS global_vars (
-    global_var_id INTEGER PRIMARY KEY,
-    global_var_name TEXT NOT NULL UNIQUE,
-    global_var_value TEXT,
-    global_var_desc TEXT
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    value TEXT,
+    description TEXT
 );
