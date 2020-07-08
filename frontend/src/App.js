@@ -10,9 +10,9 @@ import Profile from "./components/User/Profile";
 import ProjectList from './components/Project/ProjectList';
 import AddProject from './components/Project/AddProject';
 import Project from './components/Project/Project';
+import Task from "./components/Task/Task";
 
 function App() {
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
@@ -21,7 +21,6 @@ function App() {
 
     if (user) {
       setCurrentUser(user);
-      setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);
@@ -34,7 +33,7 @@ function App() {
     <Router>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <a href="/projects" className="navbar-brand">
+          <a href={currentUser ? "/projects" : "/home"} className="navbar-brand">
             Deploy Dashboard
           </a>
           <div className="navbar-nav mr-auto">
@@ -43,14 +42,6 @@ function App() {
                 Home
               </Link>
             </li>
-
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
 
             {showAdminBoard && (
               <li className="nav-item">
@@ -61,11 +52,23 @@ function App() {
             )}
 
             {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
+              <div className="navbar-nav mr-auto">
+                <li className="nav-item">
+                      <Link to={"/projects"} className="nav-link">
+                        Projects
+                      </Link>
+                </li>
+                <li>
+                      <Link to={"/add"} className="nav-link">
+                        AddProject
+                      </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/user"} className="nav-link">
+                    Users
+                  </Link>
+                </li>
+              </div>
             )}
           </div>
 
@@ -80,16 +83,6 @@ function App() {
                 <a href="/login" className="nav-link" onClick={logOut}>
                   LogOut
                 </a>
-              </li>
-              <li className="nav-item">
-                <Link to={"/projects"} className="nav-link">
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link to={"/add"} className="nav-link">
-                  Add
-                </Link>
               </li>
             </div>
           ) : (
@@ -110,15 +103,17 @@ function App() {
 
         </nav>
         <div className="container mt-3">
-          <Switch>
-            <Route exact path={["/", "/projects"]} component={ProjectList} />
-            <Route exact path="/add" component={AddProject} />
-            <Route path="/projects/:id" component={Project} />
-           
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/profile" component={Profile} />
+          <Route exact path="/login" component={Login} />
+          {currentUser && (
+            <Switch>
+              <Route exact path={["/", "/projects"]} component={ProjectList} />
+              <Route exact path="/add" component={AddProject} />
+              <Route path="/projects/:id" component={Project} />
+              <Route path="/tasks/:id" component={Task} />
+              <Route exact path="/profile" component={Profile} />
 
-          </Switch>
+            </Switch>
+          )}
         </div>
       </div>
     </Router>

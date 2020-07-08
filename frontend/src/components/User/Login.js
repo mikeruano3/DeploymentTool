@@ -90,6 +90,7 @@ const Login = (props) => {
                   value={username}
                   onChange={onChangeUsername}
                   validations={[required]}
+                  autoComplete="username"
                 />
               </div>
     
@@ -102,6 +103,7 @@ const Login = (props) => {
                   value={password}
                   onChange={onChangePassword}
                   validations={[required]}
+                  autoComplete="current-password"
                 />
               </div>
     

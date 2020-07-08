@@ -242,7 +242,7 @@ const JobList = props => {
                             </button>
                             {"  "}
                             <Link
-                                to={"/tasts/" + currentJobTask.id}
+                                to={"/tasks/" + currentJobTask.task_id}
                                 className="badge badge-warning"
                             >
                                 Edit Task

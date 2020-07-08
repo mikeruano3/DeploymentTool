@@ -4,21 +4,21 @@ const dataService = new dataServiceCommon('data/tasks');
 
 const Task = props => {
     const initialTaskState = {
-      id: null,
-      name: null,
-      description: null,
+      id: 0,
+      name: "",
+      description: "",
       order_number: 0, 
       task_type: 0,
-      request_type: null, 
-      request_url: null, 
-      request_body: null, 
+      request_type: "", 
+      request_url: "", 
+      request_body: "", 
       project_id: 0
     };
     const [currentTask, setCurrentTask] = useState(initialTaskState);
     const [message, setMessage] = useState("");
   
     const getTask = id => {
-      dataService.get(id)
+      dataService.findOne({id: id})
         .then(response => {
           setCurrentTask(response.data.data);
           console.log(response.data);
@@ -37,26 +37,8 @@ const Task = props => {
       setCurrentTask({ ...currentTask, [name]: value });
     };
   
-    const updatePublished = status => {
-      var data = {
-        id: currentProject.id,
-        title: currentProject.title,
-        description: currentProject.description,
-        published: status
-      };
-  
-      dataService.update(currentProject.id, data)
-        .then(response => {
-          setCurrentProject({ ...currentProject, published: status });
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    };
-  
     const updateTask = () => {
-      dataService.update({ id: currentProject.id }, currentProject)
+      dataService.update({ id: currentTask.id }, currentTask)
         .then(response => {
           console.log(response.data);
           setMessage("The task was updated successfully!");
@@ -67,7 +49,7 @@ const Task = props => {
     };
   
     const deleteTask = () => {
-      dataService.remove({ id: currentProject.id })
+      dataService.remove({ id: currentTask.id })
         .then(response => {
           console.log(response.data);
           props.history.push("/tasks");
@@ -81,7 +63,7 @@ const Task = props => {
         <div>
           {currentTask ? (
             <div className="edit-form">
-              <h4>Task</h4>
+              <h4>Task {currentTask.id}</h4>
               <form>
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
@@ -105,30 +87,73 @@ const Task = props => {
                     onChange={handleInputChange}
                   />
                 </div>
-    
                 <div className="form-group">
-                  <label>
-                    <strong>Status:</strong>
-                  </label>
-                  {currentTask.published ? "Published" : "Pending"}
+                  <label htmlFor="order_number">Order Number</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="order_number"
+                    name="order_number"
+                    value={currentTask.order_number}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="task_type">Task Type</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="task_type"
+                    name="task_type"
+                    value={currentTask.task_type}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="request_type">Request Type</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="request_type"
+                    name="request_type"
+                    value={currentTask.request_type}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="request_url">Request URL</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="request_url"
+                    name="request_url"
+                    value={currentTask.request_url}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="request_body">Request Body</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="request_body"
+                    name="request_body"
+                    value={currentTask.request_body}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="project_id">Project Id</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="project_id"
+                    name="project_id"
+                    value={currentTask.project_id}
+                    onChange={handleInputChange}
+                  />
                 </div>
               </form>
-    
-              {currentTask.published ? (
-                <button
-                  className="badge badge-primary mr-2"
-                  onClick={() => updatePublished(false)}
-                >
-                  UnPublish
-                </button>
-              ) : (
-                <button
-                  className="badge badge-primary mr-2"
-                  onClick={() => updatePublished(true)}
-                >
-                  Publish
-                </button>
-              )}
     
               <button className="badge badge-danger mr-2" onClick={deleteTask}>
                 Delete

@@ -1,7 +1,7 @@
 INSERT INTO global_vars (name, value, description)
 VALUES 
-    ("backendFullPath",     "/home/miguel/backend_credit_manager/",         "backendFullPath"),
-    ("frontendFullPath",    "/home/miguel/webapp_mobil_credit_manager/",    "frontendFullPath"),
+    ("backendFullPath",     "/home/credit/backend_credit_manager/",         "backendFullPath"),
+    ("frontendFullPath",    "/home/credit/webapp_mobil_credit_manager/",    "frontendFullPath"),
     ("PM2projectName",      "credit",                                       "PM2projectName"),
     ("deploymentFolder",    "/var/www/html/ecredit/",                       "deploymentFolder"),
     ("projectBuildFolder",  "business",                                     "projectBuildFolder")
@@ -103,8 +103,8 @@ INSERT INTO job_sequence_tasks (
 VALUES 
         (1, 1, 1, false),
         (2, 2, 1, false),
-        (3, 4, 1, false),
-        (4, 5, 1, true)
+        (3, 3, 1, false),
+        (4, 4, 1, false)
 ;
 
 /***********************************************/
