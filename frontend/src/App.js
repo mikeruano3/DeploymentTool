@@ -11,6 +11,9 @@ import ProjectList from './components/Project/ProjectList';
 import AddProject from './components/Project/AddProject';
 import Project from './components/Project/Project';
 import Task from "./components/Task/Task";
+import VariableList from "./components/Variables/VariableList";
+import Variable from "./components/Variables/Variable";
+import AddVariable from "./components/Variables/AddVariable";
 
 function App() {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -54,18 +57,28 @@ function App() {
             {currentUser && (
               <div className="navbar-nav mr-auto">
                 <li className="nav-item">
-                      <Link to={"/projects"} className="nav-link">
-                        Projects
-                      </Link>
+                  <Link to={"/projects"} className="nav-link">
+                    Projects
+                  </Link>
                 </li>
                 <li>
-                      <Link to={"/add"} className="nav-link">
-                        AddProject
-                      </Link>
+                  <Link to={"/add"} className="nav-link">
+                    AddProject
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <Link to={"/user"} className="nav-link">
                     Users
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/variables"} className="nav-link">
+                    Variables
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/addvariable"} className="nav-link">
+                    Add Variables
                   </Link>
                 </li>
               </div>
@@ -107,9 +120,12 @@ function App() {
           {currentUser && (
             <Switch>
               <Route exact path={["/", "/projects"]} component={ProjectList} />
+              <Route exact path="/variables" component={VariableList} />
               <Route exact path="/add" component={AddProject} />
+              <Route exact path="/addvariable" component={AddVariable} />
               <Route path="/projects/:id" component={Project} />
               <Route path="/tasks/:id" component={Task} />
+              <Route path="/variables/:id" component={Variable} />
               <Route exact path="/profile" component={Profile} />
 
             </Switch>
