@@ -130,7 +130,7 @@ VALUES
         1,
         "POST",
         "/api/actions/pullchangesfrontend",
-        "{ ""branch"": ""Test"" }",
+        "{ ""branch"": ""master"" }",
         2
     ),
     (   7,
