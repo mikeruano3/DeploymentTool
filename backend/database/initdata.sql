@@ -4,7 +4,7 @@ VALUES
     ("frontendFullPath",    "/home/credit/webapp_mobil_credit_manager/",    "frontendFullPath"),
     ("PM2projectName",      "credit",                                       "PM2projectName"),
     ("deploymentFolder",    "/var/www/html/ecredit/",                       "deploymentFolder"),
-    ("projectBuildFolder",  "test",                                         "projectBuildFolder")
+    ("projectBuildFolder",  "test",                                         "projectBuildFolder"),
     ("distFolder",          "business",                                     "distFolder")
 ;
 
