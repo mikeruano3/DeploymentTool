@@ -92,3 +92,10 @@ Create the new repository in the GitHub account and then add it as the Git remot
 ```
 git remote add origin git@github.com-work_user1:work_user1/repo_name.git
 ```
+
+### Build FrontEnd
+npm run build
+
+### Local server for testing
+npm install -g serve
+serve -s build

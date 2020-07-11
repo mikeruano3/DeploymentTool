@@ -4,7 +4,8 @@ VALUES
     ("frontendFullPath",    "/home/credit/webapp_mobil_credit_manager/",    "frontendFullPath"),
     ("PM2projectName",      "credit",                                       "PM2projectName"),
     ("deploymentFolder",    "/var/www/html/ecredit/",                       "deploymentFolder"),
-    ("projectBuildFolder",  "business",                                     "projectBuildFolder")
+    ("projectBuildFolder",  "test",                                         "projectBuildFolder")
+    ("distFolder",          "business",                                     "distFolder")
 ;
 
 INSERT INTO projects (id, name, description)
@@ -144,7 +145,7 @@ VALUES
     ),
     (   8,
         "Mover carpeta dist al servidor  /var/www/html", 
-        "cp -R ${projectFullpath}/dist/${projectBuildFolderVarname} ${deploymentFolderVarname}${projectBuildFolderVarname} ",
+        "cp -R ${projectFullpath}/dist/${distFolderVarname} ${deploymentFolderVarname}${projectBuildFolderVarname} ",
         3,
         1,
         "POST",

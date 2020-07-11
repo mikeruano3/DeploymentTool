@@ -4,6 +4,7 @@ const tablename                 = "global_vars";
 const frontendFullPathRowName    = "frontendFullPath";
 const projectBuildFolderRowName = "projectBuildFolder";
 const deploymentFolderRowName   = "deploymentFolder";
+const distFolderRowName         = "distFolder";
 
 pullChanges = async (req, res) => {
     const branch = req.body.branch
@@ -41,8 +42,11 @@ moveDistToServerFolder = async (req, res) => {
     const deploymentFolderVarnameQuery = await dbmanager.get(tablename, {name: deploymentFolderRowName}, 1);
     const deploymentFolderVarname = deploymentFolderVarnameQuery.data.value;
 
+    const distFolderVarnameQuery = await dbmanager.get(tablename, {name: distFolderRowName}, 1);
+    const distFolderVarname = distFolderVarnameQuery.data.value;
+
     return await commonactions.commandExecution(req, res, 
-        `cp -R ${projectFullpath}dist/${projectBuildFolderVarname} ${deploymentFolderVarname}${projectBuildFolderVarname} `);
+        `cp -R ${projectFullpath}dist/${distFolderVarname} ${deploymentFolderVarname}${projectBuildFolderVarname} `);
 }
 
 buildProd = async (req, res) => {
