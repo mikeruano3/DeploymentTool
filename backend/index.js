@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 var corsOptions = {
-  origin: `${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT}`
+  origin: `${process.env.FRONTEND_HOST}`
 };
 app.use(cors(corsOptions));
 app.use(jwt());
