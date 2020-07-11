@@ -81,7 +81,7 @@ const TaskList = props => {
                 setRunningTask(null);
                 setRunningJob(null);
                 console.log(response)
-                if(response.data.stdout === ""){
+                if(response.data.stdout === "" && response.data.stderr !== ""){
                     setAlertMessage(JSON.stringify(response.data))
                 }else{
                     setSuccessOpen(true)
