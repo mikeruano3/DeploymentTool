@@ -27,7 +27,9 @@ function App() {
 
     if (user) {
       setCurrentUser(user);
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      if(user.roles){ 
+        setShowAdminBoard(user.roles.includes("ROLE_ADMIN")); 
+      }
     }
   }, []);
 
