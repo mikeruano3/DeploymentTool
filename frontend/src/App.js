@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { deployPrefix } from "./config";
+import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
@@ -14,10 +15,12 @@ import Task from "./components/Task/Task";
 import VariableList from "./components/Variables/VariableList";
 import Variable from "./components/Variables/Variable";
 import AddVariable from "./components/Variables/AddVariable";
+import Home from "./components/Home/Home";
 
 function App() {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+  let match = useRouteMatch();
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -36,19 +39,19 @@ function App() {
     <Router>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <a href={currentUser ? "/projects" : "/home"} className="navbar-brand">
+          <a href={currentUser ? `${deployPrefix}/projects` : `${deployPrefix}/home`} className="navbar-brand">
             Deploy Dashboard
           </a>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              <Link to={`${deployPrefix}/home`} className="nav-link">
                 Home
               </Link>
             </li>
 
             {showAdminBoard && (
               <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
+                <Link to={`${deployPrefix}/admin`} className="nav-link">
                   Admin Board
                 </Link>
               </li>
@@ -57,27 +60,27 @@ function App() {
             {currentUser && (
               <div className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <Link to={"/projects"} className="nav-link">
+                  <Link to={`${deployPrefix}/projects`} className="nav-link">
                     Projects
                   </Link>
                 </li>
                 <li>
-                  <Link to={"/add"} className="nav-link">
+                  <Link to={`${deployPrefix}/add`} className="nav-link">
                     AddProject
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
+                  <Link to={`${deployPrefix}/user`} className="nav-link">
                     Users
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/variables"} className="nav-link">
+                  <Link to={`${deployPrefix}/variables`} className="nav-link">
                     Variables
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/addvariable"} className="nav-link">
+                  <Link to={`${deployPrefix}/addvariable`} className="nav-link">
                     Add Variables
                   </Link>
                 </li>
@@ -88,12 +91,12 @@ function App() {
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
+                <Link to={`${deployPrefix}/profile`} className="nav-link">
                   {currentUser.username}
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <a href={`${deployPrefix}/login`} className="nav-link" onClick={logOut}>
                   LogOut
                 </a>
               </li>
@@ -101,13 +104,13 @@ function App() {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <Link to={`${deployPrefix}/login`} className="nav-link">
                   Login
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
+                <Link to={`${match.path}/register`} className="nav-link">
                   Sign Up
                 </Link>
               </li>
@@ -116,17 +119,18 @@ function App() {
 
         </nav>
         <div className="container mt-3">
-          <Route exact path="/login" component={Login} />
+          <Route exact path={`${deployPrefix}/login`} component={Login} />
           {currentUser && (
             <Switch>
-              <Route exact path={["/", "/projects"]} component={ProjectList} />
-              <Route exact path="/variables" component={VariableList} />
-              <Route exact path="/add" component={AddProject} />
-              <Route exact path="/addvariable" component={AddVariable} />
-              <Route path="/projects/:id" component={Project} />
-              <Route path="/tasks/:id" component={Task} />
-              <Route path="/variables/:id" component={Variable} />
-              <Route exact path="/profile" component={Profile} />
+              <Route exact path={[`${deployPrefix}/`, `${deployPrefix}/projects`]} component={ProjectList} />
+              <Route exact path={`${deployPrefix}/variables`} component={VariableList} />
+              <Route exact path={`${deployPrefix}/add`} component={AddProject} />
+              <Route exact path={`${deployPrefix}/addvariable`} component={AddVariable} />
+              <Route exact path={`${deployPrefix}/profile`} component={Profile} />
+              <Route exact path={`${deployPrefix}/home`} component={Home} />
+              <Route path={`${deployPrefix}/projects/:id`} component={Project} />
+              <Route path={`${deployPrefix}/tasks/:id`} component={Task} />
+              <Route path={`${deployPrefix}/variables/:id`} component={Variable} />
 
             </Switch>
           )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { deployPrefix } from "../../config";
 import executeTask from "../../services/execute-task";
 import SlideAlertDialog from "../FeedBack/SlideAlertDialog";
 import SnackbarData from "../FeedBack/SnackBar";
@@ -242,7 +243,7 @@ const JobList = props => {
                             </button>
                             {"  "}
                             <Link
-                                to={"/tasks/" + currentJobTask.task_id}
+                                to={`${deployPrefix}/tasks/` + currentJobTask.task_id}
                                 className="badge badge-warning"
                             >
                                 Edit Task

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { deployPrefix } from "../../config";
 import TaskList from '../Task/TaskList';
 import dataServiceCommon from "../../services/rawdata.service";
 const projectDataService = new dataServiceCommon('data/projects');
@@ -127,7 +128,7 @@ export default class ProjectList extends Component {
                   </div>
 
                   <Link
-                    to={"/projects/" + currentProject.id}
+                    to={`${deployPrefix}/projects/` + currentProject.id}
                     className="badge badge-warning"
                   >
                     Edit

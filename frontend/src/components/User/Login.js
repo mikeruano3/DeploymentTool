@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
+import { deployPrefix } from "../../config";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
@@ -47,7 +48,7 @@ const Login = (props) => {
           AuthService.login(username, password).then(
             (data) => {
               if(data.status === "true"){
-                props.history.push("/profile");
+                props.history.push(`${deployPrefix}/profile`);
                 window.location.reload();
               }else{
                 setLoading(false);

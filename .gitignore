@@ -18,6 +18,9 @@
 # testing
 **/coverage
 
+# config
+**/frontend/src/config.json
+
 # production
 **/build
 
