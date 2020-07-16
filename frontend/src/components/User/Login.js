@@ -48,7 +48,7 @@ const Login = (props) => {
           AuthService.login(username, password).then(
             (data) => {
               if(data.status === "true"){
-                props.history.push(`${deployPrefix}/profile`);
+                props.history.push(`${deployPrefix}/`);
                 window.location.reload();
               }else{
                 setLoading(false);
